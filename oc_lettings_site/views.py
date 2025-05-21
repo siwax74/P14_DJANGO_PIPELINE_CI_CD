@@ -1,4 +1,8 @@
+import logging
 from django.shortcuts import render
+
+logger = logging.getLogger(__name__)
+
 
 def index(request):
     """
@@ -10,4 +14,12 @@ def index(request):
     Returns:
         HttpResponse: La page HTML d'accueil.
     """
-    return render(request, 'index.html')
+    logger.info("Accès à la page d'accueil (index view)")
+
+    try:
+        return render(request, "index.html")
+    except Exception as e:
+        logger.error(
+            "Erreur lors de l'affichage de la page d'accueil : %s", e, exc_info=True
+        )
+        raise

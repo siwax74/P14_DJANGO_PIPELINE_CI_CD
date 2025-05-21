@@ -1,10 +1,11 @@
 from django.db import migrations
 
+
 def migrate_address_and_letting(apps, schema_editor):
-    OldAddress = apps.get_model('lettings', 'Address')
-    OldLetting = apps.get_model('lettings', 'Letting')
-    NewAddress = apps.get_model('lettings', 'Address')
-    NewLetting = apps.get_model('lettings', 'Letting')
+    OldAddress = apps.get_model("lettings", "Address")
+    OldLetting = apps.get_model("lettings", "Letting")
+    NewAddress = apps.get_model("lettings", "Address")
+    NewLetting = apps.get_model("lettings", "Letting")
 
     old_to_new_address_map = {}
 
@@ -23,13 +24,13 @@ def migrate_address_and_letting(apps, schema_editor):
     # Copier les lettings
     for let in OldLetting.objects.all():
         NewLetting.objects.create(
-            title=let.title,
-            address=old_to_new_address_map[let.address_id]
+            title=let.title, address=old_to_new_address_map[let.address_id]
         )
+
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('lettings', '0001_initial'),
+        ("lettings", "0001_initial"),
     ]
 
     operations = [

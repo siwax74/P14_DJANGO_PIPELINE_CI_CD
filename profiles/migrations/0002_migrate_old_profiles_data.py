@@ -1,9 +1,10 @@
 from django.db import migrations
 
+
 def migrate_profiles(apps, schema_editor):
-    OldProfile = apps.get_model('profiles', 'Profile')
-    User = apps.get_model('auth', 'User')
-    NewProfile = apps.get_model('profiles', 'Profile')
+    OldProfile = apps.get_model("profiles", "Profile")
+    User = apps.get_model("auth", "User")
+    NewProfile = apps.get_model("profiles", "Profile")
 
     for old in OldProfile.objects.all():
         NewProfile.objects.create(
@@ -14,7 +15,7 @@ def migrate_profiles(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('profiles', '0001_initial'),
+        ("profiles", "0001_initial"),
     ]
 
     operations = [
