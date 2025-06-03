@@ -11,6 +11,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copie le reste de l'application
 COPY . .
 
+# Création du répertoire pour les fichiers statiques et attribution des permissions
+RUN mkdir -p /app/staticfiles && \
+  chown -R django:django /app
+
+# Collecte les fichiers statiques
 RUN python manage.py collectstatic --no-input
 
 # Expose le port 8000 (par défaut pour Django)
