@@ -12,8 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Création du répertoire pour les fichiers statiques et attribution des permissions
-RUN mkdir -p /app/staticfiles && \
-  chown -R django:django /app
+RUN mkdir -p /app/staticfiles && chmod -R 755 /app/staticfiles
+
 
 # Collecte les fichiers statiques
 RUN python manage.py collectstatic --no-input
