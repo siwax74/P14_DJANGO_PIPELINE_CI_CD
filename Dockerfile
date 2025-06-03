@@ -1,21 +1,26 @@
-# Utilise une image officielle Python
-FROM python:3.11-slim
+# Exemple basique d'un Dockerfile Django
 
-# Définit le répertoire de travail
+FROM python:3.13-slim
+
+# Variables d'environnement (optionnel, mais conseillé)
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /app
 
-# Copie les fichiers nécessaires dans le conteneur
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copier requirements.txt et installer les dépendances
+COPY requirements.txt /app/
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Copie le reste de l'application
-COPY . .
+# Copier tout le code source
+COPY . /app/
 
-# Collecte les fichiers statiques
+# Collecter les fichiers statiques
 RUN python manage.py collectstatic --noinput
 
-# Expose le port 8000 (par défaut pour Django)
+# Exposer le port (selon ton application)
 EXPOSE 8000
 
-# Commande pour démarrer le serveur Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Commande pour lancer l'application
+CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "0.0.0.0:8000"]
