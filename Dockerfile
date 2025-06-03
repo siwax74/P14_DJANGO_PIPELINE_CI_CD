@@ -8,10 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN mkdir -p /app/staticfiles && \ chown -R django:django /app
 # Copie le reste de l'application
 COPY . .
 
-RUN mkdir -p /app/staticfiles && \ chown -R django:django /app
 
 # Expose le port 8000 (par défaut pour Django)
 EXPOSE 8000
