@@ -1,5 +1,5 @@
 # Utilise une image officielle Python
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 # Définit le répertoire de travail
 WORKDIR /app
