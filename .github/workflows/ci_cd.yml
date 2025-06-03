@@ -23,21 +23,26 @@ jobs:
           pip install -r requirements.txt
 
       - name: Collect static files
+        env:
+          DJANGO_SETTINGS_MODULE: oc_lettings_site.settings  # Ajuste si besoin
         run: |
           python manage.py collectstatic --no-input
-          
+
       - name: Run linting
         run: |
           black --check .
           flake8 .
 
       - name: Run tests with coverage
+        env:
+          DJANGO_SETTINGS_MODULE: oc_lettings_site.settings
         run: |
           pytest --cov=. --cov-report=term-missing
 
   docker:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -67,4 +72,3 @@ jobs:
     steps:
       - name: Deploy to Render
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-        
