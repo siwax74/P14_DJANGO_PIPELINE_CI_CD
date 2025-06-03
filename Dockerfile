@@ -8,13 +8,14 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN mkdir -p /app/staticfiles && \ chown -R django:django /app
 # Copie le reste de l'application
 COPY . .
 
+# Collecte les fichiers statiques
+RUN python manage.py collectstatic --noinput
 
 # Expose le port 8000 (par défaut pour Django)
 EXPOSE 8000
 
 # Commande pour démarrer le serveur Django
-CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
