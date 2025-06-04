@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Étape de base
-FROM python:3.13-slim
+FROM python:3.12-slim
 
 # Arguments pour l'environnement
 ARG SECRET_KEY
