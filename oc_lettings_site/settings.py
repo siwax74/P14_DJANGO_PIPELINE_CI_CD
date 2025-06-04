@@ -128,11 +128,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 SENTRY_DSN = env("SENTRY_DSN", default=None)
 
