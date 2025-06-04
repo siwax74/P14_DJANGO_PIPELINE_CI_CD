@@ -1,20 +1,33 @@
-# Utilise une image officielle Python
+# Utilise une image Python officielle
 FROM python:3.13-slim
 
-# Définit le répertoire de travail
+# Variables d’environnement pour production
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Installer les dépendances système
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  build-essential \
+  libpq-dev \
+  && rm -rf /var/lib/apt/lists/*
+
+# Créer un répertoire de travail
 WORKDIR /app
 
-# Copie les fichiers nécessaires dans le conteneur
+# Copier les dépendances
 COPY requirements.txt .
+
+# Installer les dépendances Python
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py collectstatic --noinput
 
-
-# Copie le reste de l'application
+# Copier le reste de l'application
 COPY . .
 
-# Expose le port 8000 (par défaut pour Django)
+# Collecter les fichiers statiques
+RUN python manage.py collectstatic --noinput
+
+# Exposer le port (utile pour Gunicorn)
 EXPOSE 8000
 
-# Commande pour démarrer le serveur Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Commande de lancement avec Gunicorn
+CMD ["gunicorn", "mon_projet.wsgi:application", "--bind", "0.0.0.0:8000", "--workers=4"]
