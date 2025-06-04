@@ -23,9 +23,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le reste de l'application
 COPY . .
 
-# Collecter les fichiers statiques
-RUN python manage.py collectstatic --noinput
-
 # Exposer le port (utile pour Gunicorn)
 EXPOSE 8000
 
