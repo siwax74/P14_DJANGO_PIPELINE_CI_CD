@@ -7,6 +7,8 @@ WORKDIR /app
 # Copie les fichiers nécessaires dans le conteneur
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN python manage.py collectstatic --noinput
+
 
 # Copie le reste de l'application
 COPY . .
