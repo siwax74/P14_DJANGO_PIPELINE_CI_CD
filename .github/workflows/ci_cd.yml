@@ -36,6 +36,10 @@ jobs:
           flake8 .
 
       - name: Run tests with coverage
+        env:
+          DJANGO_SETTINGS_MODULE: oc_lettings_site.settings
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         run: |
           pytest --cov=. --cov-report=term-missing
 
