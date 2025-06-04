@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     "oc_lettings_site.apps.OCLettingsSiteConfig",
     "django.contrib.admin",
     "django.contrib.auth",
