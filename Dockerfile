@@ -1,37 +1,43 @@
-# Image de base Python légère
+# syntax=docker/dockerfile:1
+
+# Étape de base
 FROM python:3.12-slim
 
-# Variables d'environnement Python optimisées
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Arguments pour l'environnement
+ARG SECRET_KEY
+ARG SENTRY_DSN
+ARG DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
 
-# Répertoire de travail dans le conteneur
+# Variables d'environnement
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
+  SECRET_KEY=${SECRET_KEY} \
+  SENTRY_DSN=${SENTRY_DSN} \
+  DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+
+# Créer le dossier d'application
 WORKDIR /app
 
-# Copie et installation des dépendances Python
-COPY requirements.txt ./
-RUN pip install --no-cache-dir --upgrade pip && \
-  pip install --no-cache-dir -r requirements.txt
+# Installer les dépendances système
+RUN apt-get update && apt-get install -y build-essential libpq-dev curl
 
-# Copie des sources de l'application
+# Installer pip + dépendances
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copier le reste du code
 COPY . .
 
-# Création d'un utilisateur et groupe non-root 'django'
-RUN groupadd -r django && \
-  useradd --no-create-home -r -g django django
-
-# Création du répertoire pour les statiques et attribution des permissions à /app
-RUN mkdir -p /app/staticfiles && \
-  chown -R django:django /app
-
-# Passage à l'utilisateur non-root 'django'
-USER django
+# Créer l'utilisateur django
+RUN groupadd -r django && useradd --no-create-home -r -g django django
 
 # Port exposé par l'application
 EXPOSE 8000
 
-# Collecte des fichiers statiques de Django
+# Préparer les fichiers statiques
+RUN mkdir -p /app/staticfiles && chown -R django:django /app
 RUN python manage.py collectstatic --noinput --clear
 
-# Commande de démarrage de l'application avec Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi:application"]
+
+# Démarrer avec gunicorn
+CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "0.0.0.0:8000"]
