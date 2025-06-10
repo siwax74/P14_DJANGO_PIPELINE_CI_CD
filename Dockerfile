@@ -31,9 +31,13 @@ COPY . .
 # Créer l'utilisateur django
 RUN groupadd -r django && useradd --no-create-home -r -g django django
 
+# Port exposé par l'application
+EXPOSE 8000
+
 # Préparer les fichiers statiques
 RUN mkdir -p /app/staticfiles && chown -R django:django /app
 RUN python manage.py collectstatic --noinput --clear
 
+
 # Démarrer avec gunicorn
-CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "127.0.0.0:8000"]
