@@ -75,9 +75,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/oc-lettings:latest
             ${{ secrets.DOCKER_USERNAME }}/oc-lettings:${{ github.sha }}
-          build-args: |
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
-            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
-
+            
       - name: Trigger Render Deploy
         run: curl -X POST ${{ secrets.RENDER_WEBHOOK }}
