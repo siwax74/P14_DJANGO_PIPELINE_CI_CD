@@ -5,17 +5,15 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(dotenv_path=BASE_DIR / '.env')
+load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -30,7 +28,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
+    "whitenoise.runserver_nostatic",
     "oc_lettings_site.apps.OCLettingsSiteConfig",
     "django.contrib.admin",
     "django.contrib.auth",
