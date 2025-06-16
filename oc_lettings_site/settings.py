@@ -127,9 +127,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 SENTRY_DSN = os.getenv("SENTRY_DSN", default=None)
 
