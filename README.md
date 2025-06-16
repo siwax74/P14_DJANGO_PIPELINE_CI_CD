@@ -1,77 +1,153 @@
-## Résumé
+# 🏠 Orange County Lettings
 
-Site web d'Orange County Lettings
+Site web de location immobilière pour Orange County, développé en Django.
 
-## Développement local
+## 📚 Documentation Complète
 
-### Prérequis
+Pour une documentation détaillée incluant l’architecture, le guide d’installation, les technologies utilisées, et bien plus :
 
-- Compte GitHub avec accès en lecture à ce repository
+👉 [Consultez la documentation sur Read the Docs](https://oclettings.readthedocs.io/) *(Remplacez par le lien exact si nécessaire)*
+
+---
+
+## 🚀 Aperçu
+
+Orange County Lettings permet :
+- La consultation de locations (`lettings`)
+- La gestion de profils utilisateurs (`profiles`)
+
+Le projet utilise :
+- **Django** comme framework web
+- **SQLite** comme base de données en développement
+- **Docker** pour le déploiement via Render.com
+
+---
+
+## 💻 Développement Local
+
+### 🔧 Prérequis
+
 - Git CLI
-- SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+- Python 3.9 ou supérieur *(vérifiez `runtime.txt` pour la version exacte)*
+- SQLite3 CLI *(optionnel)*
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+### 🛠 Installation
 
-### macOS / Linux
+Clonez le dépôt :
 
-#### Cloner le repository
+```bash
+git clone https://github.com/siwax74/P14_DJANGO_PIPELINE_CI_CD.git
+cd P14_DJANGO_PIPELINE_CI_CD
+```
 
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+Créez et activez un environnement virtuel :
 
-#### Créer l'environnement virtuel
+**macOS / Linux :**
+```bash
+python3 -m venv env
+source venv/bin/activate
+```
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+**Windows (PowerShell) :**
+```powershell
+python -m venv env
+.env\Scripts\Activate.ps1
+```
 
-#### Exécuter le site
+Installez les dépendances :
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+```bash
+pip install -r requirements.txt
+```
 
-#### Linting
+Appliquez les migrations :
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+```bash
+python manage.py migrate
+```
 
-#### Tests unitaires
+Lancez le serveur :
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
+```bash
+python manage.py runserver
+```
 
-#### Base de données
+Accédez au site : [http://localhost:8000](http://localhost:8000)
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
+---
 
-#### Panel d'administration
+## 🧪 Outils de Qualité
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+### 🔍 Linting (Flake8)
 
-### Windows
+```bash
+flake8 .
+```
 
-Utilisation de PowerShell, comme ci-dessus sauf :
+### ✅ Tests Unitaires (Pytest)
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+```bash
+pytest
+```
+
+### 📊 Couverture de Code
+
+```bash
+pytest --cov=.
+```
+
+---
+
+## 🗃 Base de Données
+
+- Fichier SQLite local : `oc-lettings-site.sqlite3`
+- Inspection possible avec :
+  - `sqlite3` (CLI)
+  - [DB Browser for SQLite](https://sqlitebrowser.org/)
+
+---
+
+## 🔐 Panel d’Administration Django
+
+Accessible via : [http://localhost:8000/admin/](http://localhost:8000/admin/)
+
+Créez un superutilisateur si nécessaire :
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+## 🚢 Déploiement CI/CD
+
+Le projet utilise **GitHub Actions** pour :
+
+- Construire une image Docker
+- Déployer automatiquement sur **Render.com**
+
+### ⚙️ Secrets GitHub à Configurer
+
+Dans `Settings > Secrets and variables > Actions` du dépôt :
+
+| Nom               | Description |
+|------------------|-------------|
+| `SECRET_KEY`      | Clé secrète Django (générable avec `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`) |
+| `SENTRY_DSN`      | *(Optionnel)* DSN pour le suivi des erreurs avec Sentry |
+| `DOCKERHUB_USERNAME` | Nom d'utilisateur Docker Hub |
+| `DOCKERHUB_TOKEN` | Token d’accès Docker Hub |
+| `RENDER_WEBHOOK`  | URL du "Deploy Hook" de Render |
+
+Voir le fichier [`ci_cd.yml`](.github/workflows/ci_cd.yml) pour plus de détails.
+
+---
+
+## 🧾 Licence
+
+Projet sous licence MIT – voir le fichier [LICENSE](LICENSE) pour plus d’informations.
+
+---
+
+## 🙌 Remerciements
+
+Projet développé dans le cadre du parcours développeur Python chez OpenClassrooms.
