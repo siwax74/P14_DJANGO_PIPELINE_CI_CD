@@ -25,7 +25,6 @@ ALLOWED_HOSTS = [
     "p14-django-pipeline-ci-cd.onrender.com",
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [

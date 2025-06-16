@@ -21,17 +21,13 @@ RUN groupadd -r django && \
   useradd --no-create-home -r -g django django
 
 # Création du répertoire pour les statiques et attribution des permissions à /app
-RUN mkdir -p /app/staticfiles && \
-  chown -R django:django /app
+RUN chown -R django:django /app
 
 # Passage à l'utilisateur non-root 'django'
 USER django
 
 # Port exposé par l'application
 EXPOSE 8000
-
-# Collecte des fichiers statiques de Django
-RUN python manage.py collectstatic --noinput --clear
 
 # Commande de démarrage de l'application avec Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi:application"]
