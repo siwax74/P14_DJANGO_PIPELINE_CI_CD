@@ -45,14 +45,20 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Description du projet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Description du projet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#presentation-generale">Présentation générale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#objectifs-du-projet">Objectifs du projet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fonctionnalites-principales">Fonctionnalités principales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-cible">Public cible</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Guide de démarrage rapide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies et outils utilisés</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Guide d’utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Procédure de déploiement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Déploiement</a></li>
 </ul>
 
         </div>
@@ -81,11 +87,49 @@
              
   <section id="description-du-projet">
 <h1>Description du projet<a class="headerlink" href="#description-du-projet" title="Lien vers cette rubrique"></a></h1>
-<p>OC-lettings est une application web développée dans le cadre d’un projet de migration
-et d’amélioration continue. Elle permet la gestion de profils utilisateurs et de locations
-immobilières. Cette version propose une architecture modulaire, une couverture de tests &gt; 80%,
-ainsi qu’un déploiement automatisé via CI/CD.</p>
-<p>—</p>
+<section id="presentation-generale">
+<h2>Présentation générale<a class="headerlink" href="#presentation-generale" title="Lien vers cette rubrique"></a></h2>
+<p>Ce projet est un site web de location immobilière basé sur le framework <strong>Django</strong>.
+Il permet d’afficher des profils d’utilisateurs ainsi que des offres de locations disponibles.</p>
+<p>Le but principal de ce projet est d’illustrer une architecture Django modulaire, évolutive, maintenable et conforme aux bonnes pratiques de développement logiciel. Il inclut également une couverture de tests élevée, une gestion des erreurs via Sentry, une intégration CI/CD complète, et une documentation technique rigoureuse.</p>
+</section>
+<section id="objectifs-du-projet">
+<h2>Objectifs du projet<a class="headerlink" href="#objectifs-du-projet" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p>Refactorisation d’une architecture Django monolithique en structure modulaire.</p></li>
+<li><p>Séparation des fonctionnalités en applications indépendantes : <code class="docutils literal notranslate"><span class="pre">lettings</span></code> et <code class="docutils literal notranslate"><span class="pre">profiles</span></code>.</p></li>
+<li><p>Maintien de l’apparence et des fonctionnalités existantes (refactorisation pure).</p></li>
+<li><p>Intégration de la gestion d’erreurs avancée avec <strong>Sentry</strong>.</p></li>
+<li><p>Ajout de logs structurés via le module <code class="docutils literal notranslate"><span class="pre">logging</span></code>.</p></li>
+<li><p>Mise en place d’un pipeline <strong>CI/CD</strong> pour les tests, la conteneurisation et le déploiement.</p></li>
+<li><p>Création d’une documentation technique complète et claire.</p></li>
+</ul>
+</section>
+<section id="fonctionnalites-principales">
+<h2>Fonctionnalités principales<a class="headerlink" href="#fonctionnalites-principales" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p>Page d’accueil avec redirection vers les modules.</p></li>
+<li><p>Module <strong>Lettings</strong> :
+- Affichage des locations disponibles
+- Détails des adresses</p></li>
+<li><p>Module <strong>Profiles</strong> :
+- Affichage des profils d’utilisateurs</p></li>
+<li><p>Interface d’administration Django entièrement fonctionnelle</p></li>
+<li><p>Gestion des erreurs personnalisées (pages 404 et 500)</p></li>
+<li><p>Suivi des erreurs critiques via <strong>Sentry</strong></p></li>
+<li><p>Tests unitaires et d’intégration (&gt;80% de couverture)</p></li>
+<li><p>Linting conforme avec <code class="docutils literal notranslate"><span class="pre">flake8</span></code></p></li>
+</ul>
+</section>
+<section id="public-cible">
+<h2>Public cible<a class="headerlink" href="#public-cible" title="Lien vers cette rubrique"></a></h2>
+<p>Ce projet est destiné à :</p>
+<ul class="simple">
+<li><p>Des développeurs ou équipes souhaitant un exemple concret d’un projet Django bien structuré.</p></li>
+<li><p>Des équipes DevOps souhaitant intégrer un workflow CI/CD complet.</p></li>
+<li><p>Des recruteurs ou formateurs cherchant un support pédagogique pour illustrer les bonnes pratiques Django.</p></li>
+</ul>
+</section>
 </section>
 
 

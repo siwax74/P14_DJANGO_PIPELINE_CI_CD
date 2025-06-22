@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Technologies utilisées &mdash; Documentation OC-lettings 1.0.0</title>
+  <title>Technologies et outils utilisés &mdash; Documentation OC-lettings 1.0.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -48,11 +48,18 @@
 <li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Guide de démarrage rapide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Technologies utilisées</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technologies et outils utilisés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#langages-de-programmation">Langages de programmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frameworks-et-bibliotheques">Frameworks et bibliothèques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conteneurisation-et-infrastructure">Conteneurisation et infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autres-outils-et-fichiers-de-configuration">Autres outils et fichiers de configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resume-des-points-forts-techniques">Résumé des points forts techniques</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Guide d’utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Procédure de déploiement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Déploiement</a></li>
 </ul>
 
         </div>
@@ -69,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Technologies utilisées</li>
+      <li class="breadcrumb-item active">Technologies et outils utilisés</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/technologies.rst.txt" rel="nofollow"> Afficher la source de la page</a>
       </li>
@@ -79,18 +86,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="technologies-utilisees">
-<h1>Technologies utilisées<a class="headerlink" href="#technologies-utilisees" title="Lien vers cette rubrique"></a></h1>
+  <section id="technologies-et-outils-utilises">
+<h1>Technologies et outils utilisés<a class="headerlink" href="#technologies-et-outils-utilises" title="Lien vers cette rubrique"></a></h1>
+<section id="langages-de-programmation">
+<h2>Langages de programmation<a class="headerlink" href="#langages-de-programmation" title="Lien vers cette rubrique"></a></h2>
 <ul class="simple">
-<li><p>Python 3.10+</p></li>
-<li><p>Django 4.x</p></li>
-<li><p>PostgreSQL (ou SQLite en local)</p></li>
-<li><p>Docker &amp; Docker Compose</p></li>
-<li><p>GitHub Actions (CI/CD)</p></li>
-<li><p>Sentry (monitoring)</p></li>
-<li><p>Sphinx (documentation)</p></li>
+<li><p><strong>Python 3.12+</strong> : Langage principal utilisé pour le développement backend avec Django.</p></li>
+<li><p><strong>HTML / CSS</strong> : Utilisés pour les templates et le rendu visuel du site.</p></li>
 </ul>
-<p>—</p>
+</section>
+<section id="frameworks-et-bibliotheques">
+<h2>Frameworks et bibliothèques<a class="headerlink" href="#frameworks-et-bibliotheques" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><strong>Django</strong> : Framework web principal utilisé pour construire l’application (MVC, ORM, admin, etc.).</p></li>
+<li><p><strong>Gunicorn</strong> : Serveur WSGI utilisé pour le déploiement en production.</p></li>
+<li><p><strong>pytest</strong> : Utilisé pour les tests unitaires et d’intégration.</p></li>
+<li><p><strong>flake8</strong> : Outil de linting pour garantir la qualité et la cohérence du code.</p></li>
+<li><p><strong>Sentry SDK</strong> : Intégré pour la remontée des erreurs et la surveillance du comportement en production.</p></li>
+<li><p><strong>python-decouple</strong> : Gestion des variables d’environnement (séparation configuration / code).</p></li>
+<li><p><strong>whitenoise</strong> : Gestion simplifiée des fichiers statiques en production.</p></li>
+</ul>
+</section>
+<section id="conteneurisation-et-infrastructure">
+<h2>Conteneurisation et infrastructure<a class="headerlink" href="#conteneurisation-et-infrastructure" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><strong>Docker</strong> : Conteneurisation de l’application pour une portabilité maximale.</p></li>
+<li><p><strong>Docker Hub</strong> : Registre distant pour héberger les images Docker.</p></li>
+<li><p><strong>CI/CD (GitHub Actions)</strong> : Automatisation des tests, du build et du déploiement.</p></li>
+<li><p><strong>Hébergeur (Render, AWS ou autre)</strong> : Exécution du projet déployé en production.</p></li>
+</ul>
+</section>
+<section id="autres-outils-et-fichiers-de-configuration">
+<h2>Autres outils et fichiers de configuration<a class="headerlink" href="#autres-outils-et-fichiers-de-configuration" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><strong>requirements.txt</strong> : Liste des dépendances Python.</p></li>
+<li><p><strong>.env / variables d’environnement</strong> : Stockage sécurisé des paramètres sensibles.</p></li>
+<li><p><strong>coverage.py</strong> : Mesure de la couverture des tests.</p></li>
+<li><p><strong>Sphinx</strong> (optionnel) : Génération de la documentation technique.</p></li>
+</ul>
+</section>
+<section id="resume-des-points-forts-techniques">
+<h2>Résumé des points forts techniques<a class="headerlink" href="#resume-des-points-forts-techniques" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p>Architecture Django <strong>modulaire</strong> : séparation claire des applications (<cite>lettings</cite>, <cite>profiles</cite>)</p></li>
+<li><p>Pipeline <strong>CI/CD complet</strong> avec vérification qualité (lint), tests et déploiement automatique</p></li>
+<li><p>Intégration robuste de la <strong>surveillance des erreurs</strong></p></li>
+<li><p>Déploiement Dockerisé, reproductible localement ou sur un hébergeur cloud</p></li>
+</ul>
+</section>
 </section>
 
 

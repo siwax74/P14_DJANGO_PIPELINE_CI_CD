@@ -46,13 +46,18 @@
               <p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide de démarrage rapide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide de démarrage rapide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#option-1-demarrage-local-avec-python">Option 1 : Démarrage local (avec Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#option-2-demarrage-rapide-avec-docker">Option 2 : Démarrage rapide avec Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verification-rapide">Vérification rapide</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies et outils utilisés</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Guide d’utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Procédure de déploiement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Déploiement</a></li>
 </ul>
 
         </div>
@@ -81,22 +86,86 @@
              
   <section id="guide-de-demarrage-rapide">
 <h1>Guide de démarrage rapide<a class="headerlink" href="#guide-de-demarrage-rapide" title="Lien vers cette rubrique"></a></h1>
+<p>Ce guide vous permet de faire fonctionner rapidement l’application localement pour développement ou test.</p>
+<section id="option-1-demarrage-local-avec-python">
+<h2>Option 1 : Démarrage local (avec Python)<a class="headerlink" href="#option-1-demarrage-local-avec-python" title="Lien vers cette rubrique"></a></h2>
 <ol class="arabic simple">
-<li><p>Appliquer les migrations :</p></li>
+<li><p><strong>Cloner le projet</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/votre-utilisateur/oc-lettings.git
+<span class="nb">cd</span><span class="w"> </span>oc-lettings
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Créer et activer un environnement virtuel</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># Linux/macOS</span>
+venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># Windows</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Installer les dépendances</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Exécuter les migrations</strong></p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Lancer le serveur :</p></li>
+<ol class="arabic simple" start="5">
+<li><p><strong>Lancer le serveur de développement</strong></p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>runserver
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li><p>Accéder à l’application sur <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></p></li>
+<ol class="arabic simple" start="6">
+<li><p><strong>Accéder au site</strong></p></li>
 </ol>
-<p>—</p>
+<ul class="simple">
+<li><p>Front-end : <a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p></li>
+<li><p>Interface admin : <a class="reference external" href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a></p></li>
+</ul>
+</section>
+<section id="option-2-demarrage-rapide-avec-docker">
+<h2>Option 2 : Démarrage rapide avec Docker<a class="headerlink" href="#option-2-demarrage-rapide-avec-docker" title="Lien vers cette rubrique"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Construire l’image Docker</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>oc-lettings:latest<span class="w"> </span>.
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Lancer le conteneur</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s1">&#39;votre_clé&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">ALLOWED_HOSTS</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>oc-lettings:latest
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Accéder à l’application</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>Accès : <a class="reference external" href="http://localhost:8000">http://localhost:8000</a></p></li>
+</ul>
+<p>Créer un superutilisateur (si nécessaire) via :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;container_id&gt;<span class="w"> </span>python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser
+</pre></div>
+</div>
+</section>
+<section id="verification-rapide">
+<h2>Vérification rapide<a class="headerlink" href="#verification-rapide" title="Lien vers cette rubrique"></a></h2>
+<p>✅ Lancement du site sans erreur
+✅ Accès aux modules « lettings » et « profiles »
+✅ Interface admin fonctionnelle
+✅ Pages d’erreur 404/500 personnalisées (testables manuellement)</p>
+</section>
 </section>
 
 

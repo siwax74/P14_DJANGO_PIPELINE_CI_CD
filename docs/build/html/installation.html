@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Technologies utilisées" href="technologies.html" />
+    <link rel="next" title="Technologies et outils utilisés" href="technologies.html" />
     <link rel="prev" title="Guide de démarrage rapide" href="quick_start.html" /> 
 </head>
 
@@ -47,12 +47,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Guide de démarrage rapide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation du projet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequis">Prérequis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#etapes-d-installation">Étapes d’installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structure-des-fichiers">Structure des fichiers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies et outils utilisés</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Guide d’utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Procédure de déploiement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Déploiement</a></li>
 </ul>
 
         </div>
@@ -81,27 +86,89 @@
              
   <section id="installation-du-projet">
 <h1>Installation du projet<a class="headerlink" href="#installation-du-projet" title="Lien vers cette rubrique"></a></h1>
+<section id="prerequis">
+<h2>Prérequis<a class="headerlink" href="#prerequis" title="Lien vers cette rubrique"></a></h2>
+<p>Avant d’installer le projet, assurez-vous que les éléments suivants sont installés sur votre machine :</p>
+<ul class="simple">
+<li><p>Python &gt;= 3.9</p></li>
+<li><p>pip (Python package manager)</p></li>
+<li><p>virtualenv (fortement recommandé)</p></li>
+<li><p>Git</p></li>
+<li><p>Docker (optionnel, pour tests et déploiement conteneurisé)</p></li>
+</ul>
+</section>
+<section id="etapes-d-installation">
+<h2>Étapes d’installation<a class="headerlink" href="#etapes-d-installation" title="Lien vers cette rubrique"></a></h2>
 <ol class="arabic simple">
-<li><p>Cloner le dépôt :</p></li>
+<li><p><strong>Cloner le dépôt</strong></p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;url_du_repo&gt;
-<span class="nb">cd</span><span class="w"> </span>oc-lettings-site
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/votre-utilisateur/oc-lettings.git
+<span class="nb">cd</span><span class="w"> </span>oc-lettings
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Créer et activer un environnement virtuel :</p></li>
+<li><p><strong>Créer et activer un environnement virtuel</strong></p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
-<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># Windows: venv\Scripts\activate</span>
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># sous Linux/macOS</span>
+venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># sous Windows</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Installer les dépendances :</p></li>
+<li><p><strong>Installer les dépendances</strong></p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
-<p>—</p>
+<ol class="arabic simple" start="4">
+<li><p><strong>Configurer les variables d’environnement</strong></p></li>
+</ol>
+<p>Créez un fichier <cite>.env</cite> ou exportez manuellement les variables nécessaires :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code> : une clé secrète Django</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> : 1 pour le mode développement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTRY_DSN</span></code> : (optionnel en local, nécessaire pour Sentry)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code> : par défaut <cite>localhost</cite> ou <cite>127.0.0.1</cite></p></li>
+</ul>
+<ol class="arabic simple" start="5">
+<li><p><strong>Appliquer les migrations</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p><strong>Créer un superutilisateur (accès admin)</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p><strong>Lancer le serveur local</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>runserver
+</pre></div>
+</div>
+<p>Vous pouvez ensuite accéder à l’application à l’adresse :
+<a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>
+<ol class="arabic simple" start="8">
+<li><p><strong>(Optionnel) Tester le projet localement avec Docker</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>oc-lettings:local<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>oc-lettings:local
+</pre></div>
+</div>
+</section>
+<section id="structure-des-fichiers">
+<h2>Structure des fichiers<a class="headerlink" href="#structure-des-fichiers" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> : dépendances Python</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">manage.py</span></code> : interface principale Django</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oc_lettings_site/</span></code> : configuration principale du projet</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lettings/</span></code> et <code class="docutils literal notranslate"><span class="pre">profiles/</span></code> : applications Django modularisées</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">templates/</span></code> : templates HTML classés par application</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static/</span></code> : fichiers statiques (CSS, images, JS)</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -109,7 +176,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
         <a href="quick_start.html" class="btn btn-neutral float-left" title="Guide de démarrage rapide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
-        <a href="technologies.html" class="btn btn-neutral float-right" title="Technologies utilisées" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="technologies.html" class="btn btn-neutral float-right" title="Technologies et outils utilisés" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Procédure de déploiement &mdash; Documentation OC-lettings 1.0.0</title>
+  <title>Déploiement &mdash; Documentation OC-lettings 1.0.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,7 @@
       <script src="_static/translations.js?v=e6b791cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Recherche" href="search.html" />
-    <link rel="prev" title="Guide d’utilisation" href="utilisation.html" /> 
+    <link rel="search" title="Recherche" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,16 +41,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
-<ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Contenu</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Guide de démarrage rapide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies et outils utilisés</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Guide d’utilisation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Procédure de déploiement</a></li>
 </ul>
 
         </div>
@@ -68,7 +63,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Procédure de déploiement</li>
+      <li class="breadcrumb-item active">Déploiement</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/deploiement.rst.txt" rel="nofollow"> Afficher la source de la page</a>
       </li>
@@ -78,38 +73,106 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="procedure-de-deploiement">
-<h1>Procédure de déploiement<a class="headerlink" href="#procedure-de-deploiement" title="Lien vers cette rubrique"></a></h1>
-<p>Résumé : CI/CD via GitHub Actions + Docker + hébergement Render/AWS/Azure.</p>
+  <section id="deploiement">
+<h1>Déploiement<a class="headerlink" href="#deploiement" title="Lien vers cette rubrique"></a></h1>
+<section id="vue-densemble">
+<h2>Vue d’ensemble<a class="headerlink" href="#vue-densemble" title="Lien vers cette rubrique"></a></h2>
+<p>Le déploiement de ce projet repose sur un pipeline CI/CD automatisé qui garantit la qualité du code, la création d’une image Docker, puis son déploiement sur un environnement de production.</p>
+<p>Seules les modifications apportées à la branche <code class="docutils literal notranslate"><span class="pre">master</span></code> déclenchent automatiquement la conteneurisation et le déploiement du site.</p>
+</section>
+<section id="configuration-requise">
+<h2>Configuration requise<a class="headerlink" href="#configuration-requise" title="Lien vers cette rubrique"></a></h2>
+<p>Pour que le déploiement fonctionne correctement, les éléments suivants doivent être configurés :</p>
+<ul class="simple">
+<li><p><strong>Docker</strong> installé localement ou sur l’environnement distant.</p></li>
+<li><p><strong>Compte Docker Hub</strong> valide pour publier les images Docker.</p></li>
+<li><p><strong>Hébergeur</strong> compatible Docker (ex : Render, AWS Elastic Beanstalk, Azure Web App).</p></li>
+<li><p><strong>Outil CI/CD</strong> (GitHub Actions, GitLab CI, etc.) configuré avec :</p>
+<ul>
+<li><p>Secrets : <code class="docutils literal notranslate"><span class="pre">DOCKER_USERNAME</span></code>, <code class="docutils literal notranslate"><span class="pre">DOCKER_PASSWORD</span></code>, <code class="docutils literal notranslate"><span class="pre">SENTRY_DSN</span></code>, etc.</p></li>
+<li><p>Accès au registre Docker Hub.</p></li>
+</ul>
+</li>
+<li><p><strong>Variables d’environnement</strong> dans l’hébergeur (à ne pas inclure dans le code) :</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTRY_DSN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DATABASE_URL</span></code> (si base distante)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="etapes-du-pipeline-ci-cd">
+<h2>Étapes du pipeline CI/CD<a class="headerlink" href="#etapes-du-pipeline-ci-cd" title="Lien vers cette rubrique"></a></h2>
 <ol class="arabic simple">
-<li><p>Toute modification sur <cite>main</cite> déclenche la pipeline :
-- Lint + tests
-- Build image Docker &amp; push Docker Hub
-- Déploiement automatique sur hébergeur Render</p></li>
-<li><p>Configuration requise :
-- Variables d’environnement (SENTRY_DSN, DB_URL, etc.)
-- Docker installé sur le serveur</p></li>
-<li><p>Commande pour test local de l’image :</p></li>
+<li><p><strong>Compilation et tests</strong> <em>(déclenché sur toutes les branches)</em></p>
+<ul class="simple">
+<li><p>Exécution de <code class="docutils literal notranslate"><span class="pre">flake8</span></code> pour le linting.</p></li>
+<li><p>Exécution des tests via <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.</p></li>
+<li><p>Vérification que la couverture est ≥ 80 %.</p></li>
+</ul>
+</li>
+<li><p><strong>Conteneurisation</strong> <em>(uniquement sur ``main``)</em></p>
+<ul class="simple">
+<li><p>Construction d’une image Docker.</p></li>
+<li><p>Push de l’image sur Docker Hub (tag : <code class="docutils literal notranslate"><span class="pre">&lt;commit-hash&gt;</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>Déploiement</strong> <em>(si la conteneurisation réussit)</em></p>
+<ul class="simple">
+<li><p>Récupération de l’image Docker.</p></li>
+<li><p>Lancement du site sur l’hébergeur choisi.</p></li>
+<li><p>Chargement vérifié des fichiers statiques.</p></li>
+<li><p>Configuration sécurisée via variables d’environnement.</p></li>
+</ul>
+</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>&lt;image-name&gt;
-docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>&lt;image-name&gt;
+</section>
+<section id="deploiement-manuel-local">
+<h2>Déploiement manuel (local)<a class="headerlink" href="#deploiement-manuel-local" title="Lien vers cette rubrique"></a></h2>
+<p>Pour effectuer un déploiement manuel local avec Docker :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cloner le projet</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/siwax74/oc-lettings.git
+<span class="nb">cd</span><span class="w"> </span>oc-lettings
+
+<span class="c1"># Construire l’image Docker</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>oc-lettings:latest<span class="w"> </span>.
+
+<span class="c1"># Lancer le conteneur</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s1">&#39;votre_clé&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SENTRY_DSN</span><span class="o">=</span><span class="s1">&#39;https://...&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">ALLOWED_HOSTS</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>oc-lettings:latest
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li><p>Chargement des fichiers statiques vérifié via :</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic
-</pre></div>
-</div>
-<p>La documentation est complète, claire, et permettra une reprise rapide du projet par un nouveau développeur.</p>
+</section>
+<section id="acces-au-site-apres-deploiement">
+<h2>Accès au site après déploiement<a class="headerlink" href="#acces-au-site-apres-deploiement" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p>Interface admin : <code class="docutils literal notranslate"><span class="pre">https://votresite.onrender.com</span></code></p></li>
+<li><p>Vérification : chargement des fichiers CSS/JS/images</p></li>
+<li><p>Monitoring : les erreurs doivent apparaître dans Sentry</p></li>
+</ul>
+</section>
+<section id="points-de-controle-post-deploiement">
+<h2>Points de contrôle post-déploiement<a class="headerlink" href="#points-de-controle-post-deploiement" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p>✔ Apparence identique à l’environnement local</p></li>
+<li><p>✔ Accès aux routes <code class="docutils literal notranslate"><span class="pre">lettings</span></code>, <code class="docutils literal notranslate"><span class="pre">profiles</span></code>, <code class="docutils literal notranslate"><span class="pre">index</span></code></p></li>
+<li><p>✔ Pages d’erreur 404 et 500 personnalisées</p></li>
+<li><p>✔ Vérification des logs dans Sentry</p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="utilisation.html" class="btn btn-neutral float-left" title="Guide d’utilisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
-    </div>
+          <footer>
 
   <hr/>
 

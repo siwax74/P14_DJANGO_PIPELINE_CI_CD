@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Procédure de déploiement" href="deploiement.html" />
+    <link rel="next" title="Déploiement" href="deploiement.html" />
     <link rel="prev" title="Interfaces de programmation" href="api.html" /> 
 </head>
 
@@ -48,11 +48,18 @@
 <li class="toctree-l1"><a class="reference internal" href="description.html">Description du projet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Guide de démarrage rapide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation du projet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies et outils utilisés</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bdd.html">Structure de la base de données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide d’utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Procédure de déploiement</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide d’utilisation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vue-d-ensemble">Vue d’ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acces-au-site">Accès au site</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cas-dutilisation">Cas d’utilisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#raccourcis-de-navigation">Raccourcis de navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acces-administrateur-requis">Accès administrateur requis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Déploiement</a></li>
 </ul>
 
         </div>
@@ -81,13 +88,75 @@
              
   <section id="guide-d-utilisation">
 <h1>Guide d’utilisation<a class="headerlink" href="#guide-d-utilisation" title="Lien vers cette rubrique"></a></h1>
+<section id="vue-d-ensemble">
+<h2>Vue d’ensemble<a class="headerlink" href="#vue-d-ensemble" title="Lien vers cette rubrique"></a></h2>
+<p>L’application est composée de deux modules fonctionnels principaux :</p>
 <ul class="simple">
-<li><p>Page d’accueil : liste des entrées de Lettings &amp; Profiles.</p></li>
-<li><p>Profils : affichage et navigation utilisateur.</p></li>
-<li><p>Locations : détails de chaque bien.</p></li>
-<li><p>Interface admin : gestion des utilisateurs, profils et locations.</p></li>
+<li><p><strong>Lettings</strong> : gestion et visualisation des offres de locations.</p></li>
+<li><p><strong>Profiles</strong> : visualisation des profils d’utilisateurs associés aux locations.</p></li>
 </ul>
-<p>—</p>
+<p>Le site s’adresse à un public général qui souhaite consulter des offres de logement, ainsi qu’à des administrateurs qui peuvent gérer le contenu via l’interface d’administration Django.</p>
+</section>
+<section id="acces-au-site">
+<h2>Accès au site<a class="headerlink" href="#acces-au-site" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><strong>Page d’accueil</strong> : <a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>
+Permet d’accéder aux modules Lettings et Profiles.</p></li>
+<li><p><strong>Interface d’administration</strong> : <a class="reference external" href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a>
+Accessible uniquement après authentification avec un compte superutilisateur.</p></li>
+</ul>
+</section>
+<section id="cas-dutilisation">
+<h2>Cas d’utilisation<a class="headerlink" href="#cas-dutilisation" title="Lien vers cette rubrique"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Naviguer dans les offres de location</strong></p>
+<ul class="simple">
+<li><p>Depuis la page d’accueil, cliquez sur « Lettings ».</p></li>
+<li><p>Une liste de logements s’affiche avec leur titre.</p></li>
+<li><p>Cliquez sur un logement pour afficher ses détails (adresse, code postal, etc.).</p></li>
+</ul>
+</li>
+<li><p><strong>Consulter les profils utilisateurs</strong></p>
+<ul class="simple">
+<li><p>Depuis la page d’accueil, cliquez sur « Profiles ».</p></li>
+<li><p>Vous verrez la liste des profils enregistrés.</p></li>
+<li><p>Cliquez sur un nom pour consulter les détails du profil (préférence de langue, description, etc.).</p></li>
+</ul>
+</li>
+<li><p><strong>Utiliser l’interface d’administration</strong></p>
+<ul class="simple">
+<li><p>Accédez à <cite>/admin</cite> et connectez-vous avec un compte superutilisateur.</p></li>
+<li><p>Gérez les modèles : <cite>Letting</cite>, <cite>Address</cite>, <cite>Profile</cite>, <cite>User</cite>…</p></li>
+<li><p>Ajoutez, modifiez ou supprimez des entrées.</p></li>
+<li><p>Visualisez la liste des objets avec leurs champs.</p></li>
+</ul>
+</li>
+<li><p><strong>Pages d’erreur personnalisées</strong></p>
+<ul class="simple">
+<li><p>Si vous accédez à une page inexistante, une page 404 personnalisée s’affiche.</p></li>
+<li><p>En cas d’erreur serveur, une page 500 dédiée est également rendue.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="raccourcis-de-navigation">
+<h2>Raccourcis de navigation<a class="headerlink" href="#raccourcis-de-navigation" title="Lien vers cette rubrique"></a></h2>
+<ul class="simple">
+<li><p><strong>Accueil</strong> : <cite>/</cite></p></li>
+<li><p><strong>Locations</strong> : <cite>/lettings/</cite></p></li>
+<li><p><strong>Détails location</strong> : <cite>/lettings/&lt;id&gt;/</cite></p></li>
+<li><p><strong>Profils</strong> : <cite>/profiles/</cite></p></li>
+<li><p><strong>Détails profil</strong> : <cite>/profiles/&lt;username&gt;/</cite></p></li>
+</ul>
+</section>
+<section id="acces-administrateur-requis">
+<h2>Accès administrateur requis<a class="headerlink" href="#acces-administrateur-requis" title="Lien vers cette rubrique"></a></h2>
+<p>L’administration nécessite :</p>
+<ul class="simple">
+<li><p>un compte superutilisateur (créé via <cite>createsuperuser</cite>)</p></li>
+<li><p>une connexion pour accéder à l’interface Django admin</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -95,7 +164,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
         <a href="api.html" class="btn btn-neutral float-left" title="Interfaces de programmation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
-        <a href="deploiement.html" class="btn btn-neutral float-right" title="Procédure de déploiement" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="deploiement.html" class="btn btn-neutral float-right" title="Déploiement" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
