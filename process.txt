@@ -23,3 +23,12 @@
 """ docker run -p 8000:8000 my-django-app
 """ docker ps -a Voir image
 """ docker start <id_project>
+
+
+oc-lettings:
+docker run --env-file .env -p 8000:8000 siwax74/oc-lettings:latest
+docker pull siwax74/oc-lettings:latest
+
+doc:
+
+http://p14-django-pipeline-ci-cd.readthedocs.io/fr/latest/
